@@ -10,44 +10,30 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {}
-
-    // const movies = [
-    //   {
-    //     id: 0,
-    //     posterImage:
-    //       "https://image.tmdb.org/t/p/w1280/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
-    //     title: "Avengers: Infinity War",
-    //     overview: "blah blah blah"
-    //   },
-    //   {
-    //     id: 1,
-    //     posterImage:
-    //       "https://image.tmdb.org/t/p/w1280/cezWGskPY5x7GaglTTRN4Fugfb8.jpg",
-    //     title: "The Avengers",
-    //     overview: "blah blah blah blah"
-    //   }
-    // ];
-
-    // let movieRows = [];
-    // movies.forEach(movie => {
-    //   const movieRow  = <MovieRow movie={movie}/>
-    //   movieRows.push(movieRow)
-    // });
-
-    // this.state = {
-    //   rows: movieRows
-    // }
-
     this.performSearch();
 
   }
 
   performSearch() {
-    const url = 
+    const key = "1336c8a614e1ed70aa7aac2c1d1667e2";
+    const url =
+      `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=avengers`;
     $.ajax({
       url: url,
       success: (searchResults) => {
-        console.log('fetched successfully');
+        const results = searchResults.results;
+
+        let movieRows = [];
+        results.forEach((movie) => {
+          // console.log(movie.title);
+          movie.poster_src = 'https://image.tmdb.org/t/p/w1280' + movie.poster_path;
+          const movieRow = <MovieRow key={movie.id} movie={movie}/>
+          movieRows.push(movieRow)
+        })
+
+        this.setState({
+          rows: movieRows
+        })
       },
       error: (xhr, status, err) => {
         console.error('error');

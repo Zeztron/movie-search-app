@@ -7,7 +7,7 @@ export default class MovieRow extends Component {
             <tbody>
                 <tr>
                     <td>
-                        <img src={this.props.movie.posterImage} alt="Movie Poster" width="100" />
+                        <img src={this.props.movie.poster_src} alt="Movie Poster" width="100" />
                     </td>
                     <td>
                         {this.props.movie.title}
