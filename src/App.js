@@ -1,49 +1,63 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import MovieRow from './MovieRow';
+import $ from 'jquery';
+
+// api key: 1336c8a614e1ed70aa7aac2c1d1667e2
 
 class App extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {}
 
-    const movies = [
-      {
-        id: 0,
-        title: "Avengers",
-        overview: "blah blah blah"
+    // const movies = [
+    //   {
+    //     id: 0,
+    //     posterImage:
+    //       "https://image.tmdb.org/t/p/w1280/7WsyChQLEftFiDOVTGkv3hFpyyt.jpg",
+    //     title: "Avengers: Infinity War",
+    //     overview: "blah blah blah"
+    //   },
+    //   {
+    //     id: 1,
+    //     posterImage:
+    //       "https://image.tmdb.org/t/p/w1280/cezWGskPY5x7GaglTTRN4Fugfb8.jpg",
+    //     title: "The Avengers",
+    //     overview: "blah blah blah blah"
+    //   }
+    // ];
+
+    // let movieRows = [];
+    // movies.forEach(movie => {
+    //   const movieRow  = <MovieRow movie={movie}/>
+    //   movieRows.push(movieRow)
+    // });
+
+    // this.state = {
+    //   rows: movieRows
+    // }
+
+    this.performSearch();
+
+  }
+
+  performSearch() {
+    const url = 
+    $.ajax({
+      url: url,
+      success: (searchResults) => {
+        console.log('fetched successfully');
       },
-      {
-        id: 1,
-        title: "Avengers 2",
-        overview: "blah blah blah blah"
+      error: (xhr, status, err) => {
+        console.error('error');
       }
-    ];
-
-    this.state = {
-      rows: [
-        <p key="1">This is my row0</p>,
-        <p key="2">This is my row1</p>,
-        <p key="3">This is my row2</p>
-      ]
-    };
-
-    let movieRows = [];
-
-    movies.forEach(movie => {
-      console.log(movie.title);
-      movieRows.push(<p>movie title: {movie.title}</p>)
-    });
-
-    this.state = {
-      rows: movieRows
-    }
-
+    })
   }
 
   render() {
     return (
-      <div className="App">
+      <div>
         <table className="title-bar">
           <tbody>
             <tr>
