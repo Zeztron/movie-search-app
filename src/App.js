@@ -11,13 +11,12 @@ class App extends Component {
     super(props);
     this.state = {}
     this.performSearch();
-
   }
 
-  performSearch() {
+  performSearch(searchTerm) {
     const key = "1336c8a614e1ed70aa7aac2c1d1667e2";
     const url =
-      `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=avengers`;
+      `https://api.themoviedb.org/3/search/movie?api_key=${key}&query=` + searchTerm;
     $.ajax({
       url: url,
       success: (searchResults) => {
@@ -39,6 +38,12 @@ class App extends Component {
         console.error('error');
       }
     })
+  }
+
+  searchChangeHandler(event) {
+    const boundObject = this;
+    const searchTerm = event.target.value;
+    boundObject.performSearch(searchTerm);
   }
 
   render() {
@@ -65,6 +70,7 @@ class App extends Component {
           className="search-bar"
           type="text"
           placeholder="Enter search term"
+          onChange={this.searchChangeHandler.bind(this)}
         />
 
         {this.state.rows}
